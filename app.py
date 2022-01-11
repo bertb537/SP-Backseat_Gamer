@@ -1,0 +1,2 @@
+APP_TITLE = "Backseat Gamer"
+APP_DEFAULT_SCREEN_SIZE = [800, 500]
