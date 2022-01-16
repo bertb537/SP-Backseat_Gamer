@@ -1,24 +1,13 @@
 import sys
 
-from PyQt5 import QtGui as Gui
+from PyQt5.QtCore import Qt
 
-import app
-from homescreen import init_homescreen
-import styles as st
-
-
-def init_application():
-    # Create the application and its main window
-    application = Gui.QGuiApplication(sys.argv)
-    main_window = Gui.QWidget()
-    main_window.setGeometry(0, 0, 800, 500)
-    main_window.setWindowTitle(app.APP_TITLE)
-
-    # Initialize Homescreen
-    init_homescreen(application, main_window)
+from homescreen import HomeScreen
 
 
 if __name__ == '__main__':
-    init_application()
+    # Create the application and its main window
+    application = Qt.QGuiApplication(sys.argv)
 
-
+    # Initialize Homescreen
+    window = HomeScreen()

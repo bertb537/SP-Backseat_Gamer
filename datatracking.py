@@ -1,3 +1,5 @@
+import sys
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
     QApplication,
@@ -21,18 +23,13 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
-import pyautogui
-from PIL import Image, ImageTk
 
 import app
 import styles as st
 
 
-class HomeScreen(QMainWindow):
-    def __init__(self, userID: str = "", username: str = ""):
-        super().__init__()
-
+class DataTracking(QMainWindow):
+    def __init__(self, backWindow: QMainWindow, userID: str, username: str):
+        self._backWindow = backWindow
         self._userID = userID
         self._username = username
-
-        self.setWindowTitle(app.APP_TITLE)
