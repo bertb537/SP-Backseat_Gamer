@@ -1,5 +1,4 @@
-from tkinter import *
-from tkinter.ttk import *
+from PyQt5 import QtGui as Gui
 import pyautogui
 from PIL import Image, ImageTk
 
@@ -14,11 +13,9 @@ def screen_capture():
     return screenshot
 
 
-def init_homescreen(window: Tk):
-    frame = Frame(window)
-    frame.pack()
-
-    Label(frame, text=app.APP_TITLE, style="Title.Label").grid(row=0, column=0)
+def init_homescreen(application: Gui.QGuiApplication, window: Gui.QWidget):
+    title = Gui.QLabel(window)
+    title
 
     while True:
         screenshot = screen_capture()
