@@ -1,22 +1,15 @@
-from tkinter import *
-from tkinter.ttk import *
+import sys
 
-import app
-from homescreen import init_homescreen
-import styles as st
+from PyQt5 import QtWidgets
 
-
-def init_mainwindow():
-    window = Tk()
-    window.title(app.APP_TITLE)
-    window.resizable
-    st.apply_styles(window)
-
-    # Initialize Homescreen
-    init_homescreen(window)
+from homescreen import HomeScreen
 
 
 if __name__ == '__main__':
-    init_mainwindow()
+    # Create the application and its main window
+    app = QtWidgets.QApplication(sys.argv)
 
-
+    # Initialize Homescreen
+    window = HomeScreen()
+    window.show()
+    sys.exit(app.exec_())
