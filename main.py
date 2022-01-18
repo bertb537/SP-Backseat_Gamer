@@ -2,14 +2,13 @@ import sys
 
 from PyQt5 import QtWidgets
 
-from homescreen import HomeScreen
-
+import app
 
 if __name__ == '__main__':
     # Create the application and its main window
-    app = QtWidgets.QApplication(sys.argv)
+    application = QtWidgets.QApplication(sys.argv)
 
     # Initialize Homescreen
-    window = HomeScreen()
+    window = app.MainWindow()
     window.show()
-    sys.exit(app.exec_())
+    sys.exit(application.exec_())

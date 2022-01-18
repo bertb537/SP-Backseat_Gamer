@@ -11,5 +11,7 @@ def screen_capture():
 
 class ObjectDetection:
     def __init__(self, userID: str, username: str):
+        super().__init__()
+
         self._userID = userID
         self._username = username

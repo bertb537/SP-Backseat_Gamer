@@ -22,8 +22,8 @@ class Database:
         # Create Table
         cursor = connection.cursor()
         SELECT = "CREATE TABLE " + self.tableName + " ( " \
-                 "UserID TEXT, " \
-                 "Username TEXT, " \
+                 "User TEXT, " \
+                 "BattlenetID TEXT, " \
                  "Map TEXT, " \
                  "Hero TEXT, " \
                  "Kills INTEGER, " \
@@ -32,13 +32,13 @@ class Database:
                  ");"
         cursor.execute(SELECT)
 
-    def add_game(self, userID: str, username: str, map: str, hero: str, kills: int, deaths: int, result: str):
+    def add_game(self, User: str, BattlenetID: str, map: str, hero: str, kills: int, deaths: int, result: str):
         connection = sqlite.connect(self.filename)
         cursor = connection.cursor()
 
-        newGame = (userID, username, map, hero, kills, deaths, result)
+        newGame = (User, BattlenetID, map, hero, kills, deaths, result)
         SELECT = "INSERT INTO '" + self.tableName + "' " \
-            "(UserID, Username, Map, Hero, Kills, Deaths, Result) " \
+            "(User, BattlenetID, Map, Hero, Kills, Deaths, Result) " \
             "VALUES (?, ?, ?, ?, ?, ?, ?)"
 
         cursor.execute(SELECT, newGame)
@@ -51,20 +51,20 @@ class Database:
 
         newGame = (game[0], game[1], game[2], game[3], game[4], game[5], game[6])
         SELECT = "INSERT INTO '" + self.tableName + "' " \
-            "(UserID, Username, Map, Hero, Kills, Deaths, Result) " \
+            "(User, BattlenetID, Map, Hero, Kills, Deaths, Result) " \
             "VALUES (?, ?, ?, ?, ?, ?, ?)"
 
         cursor.execute(SELECT, newGame)
 
         connection.commit()
 
-    def query_wins(self, userID: str, username: str, hero: str = "", map: str = "") -> int:
+    def query_wins(self, User: str, BattlenetID: str, hero: str = "", map: str = "") -> int:
         connection = sqlite.connect(self.filename)
         cursor = connection.cursor()
 
         # Build Query
         SELECT = "SELECT COUNT(*) FROM '" + self.tableName + "' WHERE Result = 'Victory'"
-        SELECT += " AND UserID = '" + userID + "' AND Username = '" + username + "'"
+        SELECT += " AND User = '" + User + "' AND BattlenetID = '" + BattlenetID + "'"
 
         if hero != "":
             SELECT += " AND Hero = '" + hero + "'"
@@ -82,13 +82,13 @@ class Database:
             return 0
         return ret[0]
 
-    def query_losses(self, userID: str, username: str, hero: str = "", map: str = "") -> int:
+    def query_losses(self, User: str, BattlenetID: str, hero: str = "", map: str = "") -> int:
         connection = sqlite.connect(self.filename)
         cursor = connection.cursor()
 
         # Build Query
         SELECT = "SELECT COUNT(*) FROM '" + self.tableName + "' WHERE Result = 'Defeat'"
-        SELECT += " AND UserID = '" + userID + "' AND Username = '" + username + "'"
+        SELECT += " AND User = '" + User + "' AND BattlenetID = '" + BattlenetID + "'"
 
         if hero != "":
             SELECT += " AND Hero = '" + hero + "'"
@@ -106,13 +106,13 @@ class Database:
             return 0
         return ret[0]
 
-    def query_kills(self, userID: str, username: str, hero: str = "", map: str = "") -> int:
+    def query_kills(self, User: str, BattlenetID: str, hero: str = "", map: str = "") -> int:
         connection = sqlite.connect(self.filename)
         cursor = connection.cursor()
 
         # Build Query
         SELECT = "SELECT SUM(Kills) FROM '" + self.tableName + "' WHERE"
-        SELECT += " UserID = '" + userID + "' AND Username = '" + username + "'"
+        SELECT += " User = '" + User + "' AND BattlenetID = '" + BattlenetID + "'"
 
         if hero != "":
             SELECT += " AND Hero = '" + hero + "'"
@@ -130,13 +130,13 @@ class Database:
             return 0
         return ret[0]
 
-    def query_deaths(self, userID: str, username: str, hero: str = "", map: str = "") -> int:
+    def query_deaths(self, User: str, BattlenetID: str, hero: str = "", map: str = "") -> int:
         connection = sqlite.connect(self.filename)
         cursor = connection.cursor()
 
         # Build Query
         SELECT = "SELECT SUM(Deaths) FROM '" + self.tableName + "' WHERE"
-        SELECT += " UserID = '" + userID + "' AND Username = '" + username + "'"
+        SELECT += " User = '" + User + "' AND BattlenetID = '" + BattlenetID + "'"
 
         if hero != "":
             SELECT += " AND Hero = '" + hero + "'"
@@ -154,13 +154,13 @@ class Database:
             return 0
         return ret[0]
 
-    def query_all(self, userID: str, username: str, hero: str = "", map: str = "") -> list:
+    def query_all(self, User: str, BattlenetID: str, hero: str = "", map: str = "") -> list:
         connection = sqlite.connect(self.filename)
         cursor = connection.cursor()
 
         # Build Query
         SELECT = "SELECT * FROM '" + self.tableName + "' WHERE"
-        SELECT += " UserID = '" + userID + "' AND Username = '" + username + "'"
+        SELECT += " User = '" + User + "' AND BattlenetID = '" + BattlenetID + "'"
 
         if hero != "":
             SELECT += " AND Hero = '" + hero + "'"
